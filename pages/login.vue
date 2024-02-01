@@ -72,12 +72,11 @@ const fields = [
         action="/api/login"
         @submit.prevent="handleSubmit"
       >
-        <div v-for="field in fields" :key="field.id">
+        <div class="space-y-1" v-for="field in fields" :key="field.id">
           <label :for="field.id" :class="field.label">{{ field.label }}</label>
           <input v-bind="field" />
         </div>
 
-        <!-- <button type="submit" class="w-full btn btn-primary">Sign in</button> -->
         <button v-if="isLoading" class="w-full btn btn-primary">
           <span class="loading loading-spinner"></span>
           Sign in

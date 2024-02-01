@@ -65,7 +65,7 @@ const fields = [
         action="/api/login"
         @submit.prevent="handleSubmit"
       >
-        <div v-for="field in fields" :key="field.id">
+        <div class="space-y-1" v-for="field in fields" :key="field.id">
           <label :for="field.id" :class="field.label">{{ field.label }}</label>
           <input v-bind="field" />
         </div>
