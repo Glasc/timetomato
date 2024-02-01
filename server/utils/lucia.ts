@@ -2,6 +2,9 @@ import { lucia } from "lucia";
 import { libsql } from "@lucia-auth/adapter-sqlite";
 import { createClient } from "@libsql/client";
 import { h3 } from "lucia/middleware";
+import { webcrypto } from "node:crypto";
+
+globalThis.crypto = webcrypto as Crypto;
 
 export const db = createClient({
   url: process.env.DATABASE_URL ?? "",

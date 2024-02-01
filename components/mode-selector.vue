@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import type { TimerConfig } from "@/utils";
-import { defineProps, defineEmits } from "vue";
+import { defineProps } from "vue";
 
 interface Props {
   currentMode: keyof TimerConfig;
