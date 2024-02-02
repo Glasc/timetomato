@@ -48,18 +48,16 @@ const handleLogout = async (e: Event) => {
       </div>
       <div class="flex relative top-1 items-baseline space-x-3 sm:space-x-4">
         <customize-trigger :isRunning="isRunning" />
-        <form method="post" action="/api/logout" @submit.prevent="handleLogout">
-          <NuxtLink to="signup">
-            <button class="btn btn-sm btn-neutral btn-outline" type="submit">
-              <Icon
-                size="22"
-                name="uil:user"
-                color="text-black dark:text-gray-700"
-              />
-              Create account
-            </button>
-          </NuxtLink>
-        </form>
+        <NuxtLink to="/signup">
+          <button class="btn btn-sm btn-neutral btn-outline" type="submit">
+            <Icon
+              size="22"
+              name="uil:user"
+              color="text-black dark:text-gray-700"
+            />
+            Create account
+          </button>
+        </NuxtLink>
       </div>
     </div>
   </div>
