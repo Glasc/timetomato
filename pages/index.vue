@@ -54,18 +54,22 @@ const changeMode = (newMode: keyof TimerConfig) => {
   });
 };
 
-const timer = setInterval(() => {
-  if (!isRunning.value) return;
-  if (currentTimer.value === 0) {
-    const audio = new Audio(bellSound);
-    audio.volume = 0.3;
-    audio.play();
-    isRunning.value = false;
-    return;
-  }
+let timer: NodeJS.Timeout;
 
-  currentTimer.value -= 1000;
-}, 1000);
+onMounted(() => {
+  timer = setInterval(() => {
+    if (!isRunning.value) return;
+    if (currentTimer.value === 0) {
+      const audio = new Audio(bellSound);
+      audio.volume = 0.3;
+      audio.play();
+      isRunning.value = false;
+      return;
+    }
+
+    currentTimer.value -= 1000;
+  }, 1000);
+});
 
 onUnmounted(() => {
   clearInterval(timer);
