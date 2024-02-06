@@ -6,16 +6,6 @@ defineProps<{
   isRunning: boolean;
 }>();
 
-const user = useUser();
-
-const handleLogout = async (e: Event) => {
-  if (!(e.target instanceof HTMLFormElement)) return;
-  await $fetch("/api/logout", {
-    method: "POST",
-    redirect: "manual",
-  });
-  await navigateTo("/login");
-};
 </script>
 
 <template>
@@ -37,13 +27,13 @@ const handleLogout = async (e: Event) => {
         <a class="text-2xl font-bold mt-1">Pomodoro</a>
       </div>
       <div class="hidden sm:block">
-        <h2 class="font-semibold relative top-1" v-if="user">
+        <h2 class="font-semibold relative top-1">
           <Icon
             class="text-black dark:text-purple-300"
             size="22"
             name="uil:user"
           />
-          {{ user.username }}
+          Guest
         </h2>
       </div>
       <div class="flex relative top-1 items-baseline space-x-3 sm:space-x-4">
