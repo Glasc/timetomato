@@ -4,15 +4,25 @@ import type { TimerConfig } from "~/utils";
 import { useLocalStorage } from "@vueuse/core";
 import bellSound from "./assets/bell.mp3";
 
-definePageMeta({
-  middleware: "authed",
-});
+const user = useUser();
+console.log(user.value)
+if (user.value) {
+  await navigateTo("/app");
+}
 
 const defaultTimerConfig = {
   pomodoro: 1500000,
   shortBreak: 300000,
   longBreak: 900000,
 };
+
+const numbers = [1, 2, 3, 4, 5];
+
+
+const result = numbers.map(function (number) {
+  return number * 2;
+});
+
 
 let timerConfigInLocalStorage = useLocalStorage(
   "timerConfig",

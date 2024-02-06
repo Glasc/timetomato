@@ -6,18 +6,23 @@ import { navbar } from "~/components/navbar";
 import { mode } from "~/components/mode";
 
 definePageMeta({
-  middleware: "protected",
+  middleware: ["protected"],
 });
 
-const user = useUser();
+const user = useAuthenticatedUser();
 
 const data = await useFetch("/api/timer");
+
 const initialConfig = data.data.value;
+
+const test = await $fetch("https://fakestoreapi.com/products/1")
+
 const fallbackConfig = {
   pomodoro: 1500000,
   shortBreak: 300000,
   longBreak: 900000,
 };
+
 const defaultTimerConfig = ref(initialConfig ?? fallbackConfig);
 
 let timerConfigInMilliseconds: Ref<TimerConfig> = ref(defaultTimerConfig);
