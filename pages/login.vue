@@ -1,11 +1,5 @@
 <script lang="ts" setup>
 import { auth } from "~/components/auth";
-
-const user = useUser();
-if (user.value) {
-  await navigateTo("/");
-}
-
 const errorMessage = ref<string | null>(null);
 
 const isLoading = ref(false);
@@ -23,7 +17,7 @@ const handleSubmit = async (e: Event) => {
       },
       redirect: "manual",
     });
-    await navigateTo("/"); // profile page
+    await navigateTo("/app");
   } catch (e) {
     const { data: error } = e as {
       data: {

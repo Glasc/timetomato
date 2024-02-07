@@ -25,9 +25,11 @@ export default defineNuxtConfig({
   },
   routeRules: {
     // Homepage pre-rendered at build time
-    "/": { prerender: true, ssr: true },
+    "/": { ssr: true },
     // Product page generated on-demand, revalidates in background
-    "/app": { prerender: true, ssr: true },
+    "/app": { ssr: true },
+    "/signup": { prerender: true, ssr: true },
+    "/login": { prerender: true, ssr: true },
   },
   app: {
     head: {

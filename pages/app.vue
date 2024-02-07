@@ -4,6 +4,7 @@ import { useLocalStorage } from "@vueuse/core";
 import bellSound from "./assets/bell.mp3";
 import { navbar } from "~/components/navbar";
 import { mode } from "~/components/mode";
+import type { Ref } from "vue";
 
 definePageMeta({
   middleware: ["protected"],
@@ -13,9 +14,7 @@ const user = useAuthenticatedUser();
 
 const data = await useFetch("/api/timer");
 
-const initialConfig = data.data.value;
-
-const test = await $fetch("https://fakestoreapi.com/products/1")
+const initialConfig = data.data.value ?? undefined;
 
 const fallbackConfig = {
   pomodoro: 1500000,

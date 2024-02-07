@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import { auth } from "~/components/auth";
 
-const user = useUser();
-if (user.value) await navigateTo("/"); // redirect to profile page
-
 const errorMessage = ref<string | null>(null);
 
 const handleSubmit = async (e: Event) => {
