@@ -2,7 +2,7 @@ import { db } from "../utils/lucia";
 import { timerConfigSchemaMs } from "~/utils";
 import convertResponseToTimerConfig from "~/shared/data-adapter";
 import { z } from "zod";
-import { ResultSet } from "@libsql/client/.";
+import { ResultSet } from "@libsql/client";
 
 const getUserId = (id: string | undefined) => {
   const userId = z.string().min(1).safeParse(id);
@@ -53,11 +53,12 @@ export default defineEventHandler(async (event) => {
   let rawTimerConfig: ResultSet | undefined;
 
   try {
-    rawTimerConfig = await db.execute(
-      `UPDATE timers
-      SET pomodoro = "${pomodoro}", short_break = "${shortBreak}", long_break = "${longBreak}"
-      WHERE user_id = "${userId}"`
-    );
+    rawTimerConfig = await db.execute({
+      sql: `UPDATE timers
+      SET pomodoro = ?, short_break = ?, long_break = ?
+      WHERE user_id = ?`,
+      args: [pomodoro, shortBreak, longBreak, userId]
+    });
   } catch (err) {
     console.log("Error executing database query:", err);
     return;

@@ -1,26 +1,27 @@
-import { db } from "../utils/lucia";
-import { timerConfigSchemaMs } from "~/utils";
-import convertResponseToTimerConfig from "~/shared/data-adapter";
+import { db } from "../utils/lucia"
+import { timerConfigSchemaMs } from "~/utils"
+import convertResponseToTimerConfig from "~/shared/data-adapter"
 
 export default defineEventHandler(async (event) => {
-  const authRequest = auth.handleRequest(event);
-  const session = await authRequest.validate();
+  const authRequest = auth.handleRequest(event)
+  const session = await authRequest.validate()
 
   if (!session) {
-    throw new Error("Session not found");
+    throw new Error("Session not found")
   }
 
-  const userId = session.user.userId;
+  const userId = session.user.userId
 
-  const rawTimerConfig = await db.execute(
-    `SELECT * FROM timers WHERE user_id="${userId}" LIMIT 1`
-  );
+  const rawTimerConfig = await db.execute({
+    sql: `SELECT * FROM timers WHERE user_id = ? LIMIT 1`,
+    args: [userId],
+  })
 
-  const timerConfig = convertResponseToTimerConfig(rawTimerConfig)[0];
+  const timerConfig = convertResponseToTimerConfig(rawTimerConfig)[0]
 
   return timerConfigSchemaMs.parse({
     pomodoro: timerConfig.pomodoro,
     shortBreak: timerConfig.short_break,
     longBreak: timerConfig.long_break,
-  });
-});
+  })
+})
