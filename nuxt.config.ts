@@ -8,7 +8,19 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@pinia/nuxt", "nuxt-icon", "@nuxtjs/color-mode"],
+  modules: [
+    "@pinia/nuxt",
+    "nuxt-icon",
+    "@nuxtjs/color-mode",
+    [
+      "@nuxtjs/google-fonts",
+      {
+        families: {
+          Lexend: "400..700",
+        },
+      },
+    ],
+  ],
   colorMode: {
     preference: "sunset", // default value of $colorMode.preference
     hid: "nuxt-color-mode-script",
@@ -49,4 +61,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-});
+})
