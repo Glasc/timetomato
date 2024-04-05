@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, "/"); // redirect to profile page
   } catch (e) {
     // check for unique constraint error in user table
-    if (e instanceof LibsqlError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
+    if (e instanceof LibsqlError && e.code === "SQLITE_CONSTRAINT") {
       throw createError({
         message: "Username already taken",
         statusCode: 400,

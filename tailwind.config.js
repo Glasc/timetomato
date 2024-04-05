@@ -15,5 +15,6 @@ export default {
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["sunset", "lofi"],
+    logs: false
   },
 };

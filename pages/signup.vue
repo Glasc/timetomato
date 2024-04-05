@@ -81,4 +81,3 @@ const fields = [
     </auth.panel>
   </auth.root>
 </template>
-~/components/auth
