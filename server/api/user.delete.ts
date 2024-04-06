@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
     })
     await auth.deleteUser(userId)
     console.log("User deleted successfully")
+    return sendRedirect(event, "/"); // redirect to app local version
   } catch (err) {
     console.log("Error deleting the user:")
     console.log(err)

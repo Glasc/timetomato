@@ -12,9 +12,12 @@ definePageMeta({
 
 const user = useAuthenticatedUser()
 
-const data = await useFetch("/api/timer")
+const getInitialConfig = async () => {
+  const data = await useFetch("/api/timer")
+  return data.data.value
+}
 
-const initialConfig = data.data.value ?? undefined
+const initialConfig = (await getInitialConfig()) ?? undefined
 
 const fallbackConfig = {
   pomodoro: 1500000,
@@ -47,7 +50,6 @@ const updateTimerConfig = (config: TimerConfig) => {
 }
 
 const changeMode = (newMode: keyof TimerConfig) => {
-  console.log(newMode)
   currentMode.value = newMode
   useLocalStorage("currentMode", newMode)
   nextTick(() => {

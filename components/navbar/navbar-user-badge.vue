@@ -6,13 +6,13 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const handleDelete = async () => {
+const handleDeleteUser = async () => {
   try {
     await $fetch("/api/user", {
       method: "DELETE",
-      redirect: "manual"
+      redirect: "manual",
     })
-    await navigateTo("/") // app local version
+    await navigateTo("/")
   } catch (err) {
     console.log(err)
   }
@@ -36,7 +36,7 @@ const handleDelete = async () => {
           class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
         >
           <li>
-            <button class="btn btn-sm btn-neutral" @click="handleDelete()">
+            <button class="btn btn-sm btn-neutral" @click="handleDeleteUser()">
               Delete account
             </button>
           </li>
