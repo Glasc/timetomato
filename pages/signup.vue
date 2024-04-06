@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { auth } from "~/components/auth";
+import { auth } from "~/components/auth"
+const errorMessage = ref<string | null>(null)
 
-const errorMessage = ref<string | null>(null);
+const isLoading = ref(false)
 
 const handleSubmit = async (e: Event) => {
-  if (!(e.target instanceof HTMLFormElement)) return;
-  const formData = new FormData(e.target);
+  if (!(e.target instanceof HTMLFormElement)) return
+  const formData = new FormData(e.target)
+  isLoading.value = true
   try {
     await $fetch("/api/signup", {
       method: "POST",
@@ -14,17 +16,19 @@ const handleSubmit = async (e: Event) => {
         password: formData.get("password"),
       },
       redirect: "manual",
-    });
-    await navigateTo("/"); // profile page
+    })
+    await navigateTo("/") // profile page
   } catch (e) {
     const { data: error } = e as {
       data: {
-        message: string;
-      };
-    };
-    errorMessage.value = error.message;
+        message: string
+      }
+    }
+    errorMessage.value = error.message
+  } finally {
+    isLoading.value = false
   }
-};
+}
 
 const fields = [
   {
@@ -48,7 +52,7 @@ const fields = [
     minlength: 6,
     maxlength: 40,
   },
-];
+]
 </script>
 
 <template>
@@ -67,7 +71,14 @@ const fields = [
           <input v-bind="field" />
         </div>
 
-        <button type="submit" class="w-full btn btn-primary">Sign in</button>
+        <button v-if="isLoading" class="w-full btn btn-primary">
+          <span class="loading loading-spinner"></span>
+          Sign up
+        </button>
+        <button v-else type="submit" class="w-full btn btn-primary">
+          Sign up
+        </button>
+
         <p class="text-sm text-center font-light">
           Already signed up?
           <NuxtLink
