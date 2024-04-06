@@ -4,7 +4,6 @@ import { useLocalStorage } from "@vueuse/core";
 import bellSound from "./assets/bell.mp3";
 
 const user = useUser();
-console.log(user.value)
 if (user.value) {
   await navigateTo("/app");
 }

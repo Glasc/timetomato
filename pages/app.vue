@@ -1,97 +1,101 @@
 <script setup lang="ts">
-import type { TimerConfig } from "~/utils";
-import { useLocalStorage } from "@vueuse/core";
-import bellSound from "./assets/bell.mp3";
-import { navbar } from "~/components/navbar";
-import { mode } from "~/components/mode";
-import type { Ref } from "vue";
+import type { TimerConfig } from "~/utils"
+import { useLocalStorage } from "@vueuse/core"
+import bellSound from "./assets/bell.mp3"
+import { navbar } from "~/components/navbar"
+import { mode } from "~/components/mode"
+import type { Ref } from "vue"
 
 definePageMeta({
   middleware: ["protected"],
-});
+})
 
-const user = useAuthenticatedUser();
+const user = useAuthenticatedUser()
 
-const data = await useFetch("/api/timer");
+const data = await useFetch("/api/timer")
 
-const initialConfig = data.data.value ?? undefined;
+const initialConfig = data.data.value ?? undefined
 
 const fallbackConfig = {
   pomodoro: 1500000,
   shortBreak: 300000,
   longBreak: 900000,
-};
+}
 
-const defaultTimerConfig = ref(initialConfig ?? fallbackConfig);
+const defaultTimerConfig = ref(initialConfig ?? fallbackConfig)
 
-let timerConfigInMilliseconds: Ref<TimerConfig> = ref(defaultTimerConfig);
+let timerConfigInMilliseconds: Ref<TimerConfig> = ref(defaultTimerConfig)
 
-let currentModeInLocalStorage = useLocalStorage("currentMode", "pomodoro");
+let currentModeInLocalStorage = useLocalStorage("currentMode", "pomodoro")
 
 const currentMode: Ref<keyof TimerConfig> = ref(
   currentModeInLocalStorage
     ? (currentModeInLocalStorage.value as keyof TimerConfig)
     : "pomodoro"
-);
+)
 
-const currentTimer = ref(timerConfigInMilliseconds.value[currentMode.value]);
-const isRunning = ref(false);
+const currentTimer = ref(timerConfigInMilliseconds.value[currentMode.value])
+const isRunning = ref(false)
 
 watchEffect(() => {
-  if (isRunning.value) return;
-  currentTimer.value = timerConfigInMilliseconds.value[currentMode.value];
-});
+  if (isRunning.value) return
+  currentTimer.value = timerConfigInMilliseconds.value[currentMode.value]
+})
 
 const updateTimerConfig = (config: TimerConfig) => {
-  timerConfigInMilliseconds.value = config;
-};
+  timerConfigInMilliseconds.value = config
+}
 
 const changeMode = (newMode: keyof TimerConfig) => {
-  console.log(newMode);
-  currentMode.value = newMode;
-  useLocalStorage("currentMode", newMode);
+  console.log(newMode)
+  currentMode.value = newMode
+  useLocalStorage("currentMode", newMode)
   nextTick(() => {
-    currentTimer.value = timerConfigInMilliseconds.value[currentMode.value];
-  });
-};
+    currentTimer.value = timerConfigInMilliseconds.value[currentMode.value]
+  })
+}
 
 const nextMode = {
   pomodoro: "shortBreak",
   shortBreak: "longBreak",
   longBreak: "pomodoro",
-} as const;
+} as const
 
-let timer: NodeJS.Timeout;
+let timer: NodeJS.Timeout
 
 onMounted(() => {
   timer = setInterval(() => {
-    if (!isRunning.value) return;
+    if (!isRunning.value) return
     if (currentTimer.value === 0) {
-      const audio = new Audio(bellSound);
-      audio.volume = 0.3;
-      audio.play();
-      isRunning.value = false;
-      const next = nextMode[currentMode.value];
-      changeMode(next);
-      return;
+      const audio = new Audio(bellSound)
+      audio.volume = 0.3
+      audio.play()
+      isRunning.value = false
+      const next = nextMode[currentMode.value]
+      changeMode(next)
+      return
     }
 
-    currentTimer.value -= 1000;
-  }, 1000);
-});
+    currentTimer.value -= 1000
+  }, 1000)
+})
 
 onUnmounted(() => {
-  clearInterval(timer);
-});
+  clearInterval(timer)
+})
 
-useLocalStorage("theme", "sunset");
+useLocalStorage("theme", "sunset")
 </script>
 <template>
   <div class="relative flex min-h-screen" :class="{ 'bg-base-200': isRunning }">
     <div class="w-full space-y-10 pb-10">
       <navbar.root>
         <navbar.brand appName="Pomodoro" />
-        <navbar.userBadge v-if="user" :userName="user?.username" />
+        <navbar.userBadge
+          v-if="user"
+          :userName="user?.username"
+          :userId="user.userId"
+        />
         <navbar.controls :isRunning="isRunning" />
       </navbar.root>
 
