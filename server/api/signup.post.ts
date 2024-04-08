@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     });
     const authRequest = auth.handleRequest(event);
     authRequest.setSession(session);
-    return sendRedirect(event, "/"); // redirect to profile page
+    return sendRedirect(event, "/app"); // redirect to app
   } catch (e) {
     // check for unique constraint error in user table
     if (e instanceof LibsqlError && e.code === "SQLITE_CONSTRAINT") {

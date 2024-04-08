@@ -17,7 +17,7 @@ const handleSubmit = async (e: Event) => {
       },
       redirect: "manual",
     })
-    await navigateTo("/") // profile page
+    await navigateTo("/app") // redirect to app
   } catch (e) {
     const { data: error } = e as {
       data: {
