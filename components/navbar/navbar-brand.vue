@@ -8,6 +8,6 @@ const props = defineProps<Props>()
 <template>
   <div class="">
     <img src="~/assets/tomato.png" alt="" width="40" height="40" />
-    <a class="text-2xl font-bold mt-1">{{ props.appName }}</a>
+    <a class="text-lg sm:text-2xl font-bold mt-1">{{ props.appName }}</a>
   </div>
 </template>
