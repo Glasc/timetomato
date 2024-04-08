@@ -49,7 +49,7 @@ const fields = [
     name: "password",
     id: "password",
     label: "Password",
-    placeholder: "••••••••",
+    placeholder: "",
     class: "border input input-bordered w-full",
     required: true,
     minlength: 6,
@@ -71,7 +71,7 @@ const fields = [
       >
         <div class="space-y-1" v-for="field in fields" :key="field.id">
           <label :for="field.id" :class="field.label">{{ field.label }}</label>
-          <input v-bind="field" />
+          <input v-bind="field" autofocus />
         </div>
 
         <button v-if="isLoading" class="w-full btn btn-primary">
