@@ -12,7 +12,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <label class="swap swap-rotate btn btn-sm dark:btn-neutral">
+  <label class="swap swap-rotate btn btn-sm  p-0 ">
     <!-- this hidden checkbox controls the state -->
     <input type="checkbox" class="theme-controller bg-transparent" @change="toggleTheme" />
 
