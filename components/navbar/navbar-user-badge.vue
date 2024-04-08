@@ -10,7 +10,6 @@ const handleDeleteUser = async () => {
   try {
     await $fetch("/api/user", {
       method: "DELETE",
-      redirect: "manual",
     })
     await navigateTo("/")
   } catch (err) {

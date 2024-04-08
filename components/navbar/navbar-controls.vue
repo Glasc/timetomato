@@ -5,7 +5,6 @@ const handleLogout = async (e: Event) => {
   if (!(e.target instanceof HTMLFormElement)) return;
   await $fetch("/api/logout", {
     method: "POST",
-    redirect: "manual",
   });
   await navigateTo("/login");
 };

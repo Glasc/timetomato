@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { auth } from "~/components/auth"
-const errorMessage = ref<string | null>(null)
 
+definePageMeta({
+  middleware: ["authed"],
+})
+
+const errorMessage = ref<string | null>(null)
 const isLoading = ref(false)
 
 const handleSubmit = async (e: Event) => {
@@ -15,7 +19,6 @@ const handleSubmit = async (e: Event) => {
         username: formData.get("username"),
         password: formData.get("password"),
       },
-      redirect: "manual",
     })
     await navigateTo("/app") // redirect to app
   } catch (e) {
