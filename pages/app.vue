@@ -94,7 +94,7 @@ useLocalStorage("theme", "sunset")
       <navbar.root>
         <navbar.brand appName="Pomodoro" />
         <navbar.userBadge
-          v-if="user"
+          :v-if="user"
           :userName="user?.username"
           :userId="user.userId"
         />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-  isRunning: boolean;
-}>();
+  isRunning: boolean
+}>()
 </script>
 <template>
   <div class="flex items-center space-x-2 sm:space-x-4">
@@ -16,7 +16,7 @@ defineProps<{
           size="22"
           name="uil:setting"
         />
-        Customize
+        <span class="hidden sm:inline-block">Customize</span>
       </button>
       <button v-else class="btn btn-sm dark:btn-neutral hover:none w-full">
         <Icon
@@ -24,7 +24,7 @@ defineProps<{
           size="22"
           name="uil:setting"
         />
-        Customize
+        <span class="hidden sm:inline-block">Customize</span>
       </button>
     </div>
   </div>
