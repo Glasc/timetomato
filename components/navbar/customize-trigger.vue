@@ -18,7 +18,7 @@ defineProps<{
         />
         <span class="hidden sm:inline-block">Customize</span>
       </button>
-      <button v-else class="btn btn-sm dark:btn-neutral hover:none w-full">
+      <button v-else class="btn btn-sm hover:none w-full">
         <Icon
           class="text-gray-600 dark:text-gray-400"
           size="22"
